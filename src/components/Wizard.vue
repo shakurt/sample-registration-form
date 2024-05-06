@@ -8,7 +8,7 @@ import DescriptionTab from '@/components/Description.vue'
 import FemaleUserImage from '@/assets/images/female-user.svg'
 import FemaleEmail from '@/assets/images/female-email.svg'
 import FemaleReview from '@/assets/images/female-review.svg'
-import { isInputEmpty, isInputUseInvalidChars, isInputLessThan, isInputMoreThan } from '@/utils/validateInputs'
+import { isUsernameValid, isEmailValid, isInputEmpty } from '@/utils/validateInputs'
 
 const userInfo = ref({
   username: '',
@@ -19,27 +19,20 @@ const tabs = ['username', 'email', 'review']
 const selectedTab = ref(tabs[0])
 
 const error = ref('')
+const valid = ref('')
 
 const usernameValidate = () => {
   error.value = ''
-  if (
-    isInputEmpty(userInfo.value.username) ||
-    isInputLessThan(userInfo.value.username, 3) ||
-    isInputMoreThan(userInfo.value.username, 8) ||
-    isInputUseInvalidChars(userInfo.value.username)
-  ) {
-    // error.value = "Username can't be empty!"
-    // error.value = "Username length can't be less than 4 characters!"
-    // error.value = "Username length can't be more than 7 characters!"
-    // error.value = "Username can't included invalid characters!"
+  if (isUsernameValid(userInfo.value.username)) {
     error.value = 'Invalid Username.'
   }
+  return !error.value
 }
 
 const emailValidate = () => {
   error.value = ''
-  if (isInputEmpty(userInfo.value.username)) {
-    error.value = "Email can't be empty!"
+  if (isEmailValid(userInfo.value.email) || isInputEmpty(userInfo.value.email)) {
+    error.value = 'Invalid email address.'
   }
   return !error.value
 }
@@ -47,6 +40,7 @@ const emailValidate = () => {
 const clickNextButton = () => {
   if (selectedTab.value === 'username') {
     if (!usernameValidate()) return
+    else valid.value = 'valid_username'
   } else if (selectedTab.value === 'email') {
     if (!emailValidate()) return
   }
@@ -63,7 +57,7 @@ const clickPreviousButton = () => {
 
 <template>
   <Card class="mx-auto flex justify-between gap-10 bg-[#1c2641]">
-    <div class="flex h-full w-7/12 flex-col justify-between">
+    <div class="flex h-full w-full flex-col justify-between md:w-7/12">
       <header class="text-center">
         <Transition name="fade-preset" mode="out-in">
           <p :key="selectedTab" class="text-lg text-white">
@@ -74,15 +68,15 @@ const clickPreviousButton = () => {
       </header>
 
       <Transition name="fade-preset" mode="out-in">
-        <UsernameTab v-if="selectedTab === 'username'" v-model="userInfo.username" :error />
+        <UsernameTab v-if="selectedTab === 'username'" v-model="userInfo.username" :error :valid />
         <EmailTab v-else-if="selectedTab === 'email'" v-model="userInfo.email" :error />
-        <DescriptionTab v-else-if="selectedTab === 'review'" v-model="userInfo" />
+        <DescriptionTab v-else-if="selectedTab === 'review'" v-model="userInfo" :user-info />
       </Transition>
 
-      <div aria-label="button-containers" class="mx-auto flex w-9/12 justify-between">
+      <div aria-label="button-containers" class="mx-auto flex w-full items-center justify-between">
         <Button
           id="btn-prev"
-          class="w-36"
+          class="w-1/3 max-w-36 md:w-full"
           type="button"
           variant="outline"
           :disabled="selectedTab === 'username'"
@@ -92,7 +86,7 @@ const clickPreviousButton = () => {
         </Button>
         <Button
           id="btn-next"
-          class="w-36"
+          class="w-1/3 max-w-36 md:w-full"
           type="button"
           variant="primary"
           :disabled="selectedTab === 'review'"
@@ -102,7 +96,7 @@ const clickPreviousButton = () => {
         </Button>
       </div>
     </div>
-    <div class="flex w-4/12 items-center justify-center">
+    <div class="hidden items-center justify-center md:flex md:w-4/12">
       <Transition name="fade-preset" mode="out-in">
         <img v-if="selectedTab === 'username'" :src="FemaleUserImage" alt="sign up illustration" />
         <img v-else-if="selectedTab === 'email'" :src="FemaleEmail" alt="sign up illustration" />
