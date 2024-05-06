@@ -1,8 +1,4 @@
-export const isInputEmpty = (value) => !value
+export const isInputEmpty = (value) => !value.trim()
+export const isUsernameValid = (value) => !/^\w{4,15}$/.exec(value)
 
-export const isInputLessThan = (value, numberOfCharacters) => value.length <= numberOfCharacters
-
-export const isInputMoreThan = (value, numberOfCharacters) => value.length >= numberOfCharacters
-
-export const isInputUseInvalidChars = (value) => !/^[a-z](?:[a-z]+\d*|\d{2,})$/i.exec(value)
-
+export const isEmailValid = (email) => !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.exec(email)
