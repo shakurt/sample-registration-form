@@ -1,1 +1,10 @@
 @import "./style.css";
+
+.fade-preset-enter-active,
+.fade-preset-leave-active {
+	transition: all 0.3s ease;
+}
+.fade-preset-enter-from,
+.fade-preset-leave-to {
+	opacity: 0;
+}
