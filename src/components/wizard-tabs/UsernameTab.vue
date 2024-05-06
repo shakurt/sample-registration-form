@@ -16,7 +16,7 @@ const username = defineModel({ type: String, required: true })
 </script>
 
 <template>
-  <div class="mx-auto flex w-9/12 flex-col">
+  <div class="mx-auto flex w-full max-w-96 flex-col">
     <label for="username" class="mb-2 text-lg text-white">Username:</label>
     <input v-model="username" id="username" name="username" autofocus class="input" type="text" />
     <Transition name="fade-preset" mode="out-in">
