@@ -24,7 +24,7 @@ defineProps({
 
 <style scoped lang="css">
 .button {
-  @apply min-w-16 rounded-full px-5 py-2 text-base font-bold text-white outline-none transition-all;
+  @apply min-w-16 rounded-full px-2 py-2 text-base font-bold text-white outline-none transition-all md:px-5;
 }
 
 .button.primary {
