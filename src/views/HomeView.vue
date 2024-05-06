@@ -1,9 +1,9 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+<script setup lang="js">
+import Wizard from '@/components/Wizard.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
+  <main class="w-full">
+    <Wizard />
   </main>
 </template>
