@@ -64,17 +64,19 @@ export default {
 </script>
 
 <template>
-  <div class="">
-    <p class="text-xl text-white">
+  <div class="mx-auto flex w-full max-w-96 flex-col">
+    <p class="text-base text-white sm:text-xl">
       Username:
       <span class="font-bold">{{ userInfo ? userInfo.username : '' }}</span>
     </p>
-    <p class="text-xl text-white">
+    <p class="text-base text-white sm:text-xl">
       Email:
       <span class="font-bold">{{ userInfo ? userInfo.email : '' }}</span>
     </p>
 
-    <input id="description" class="input" @input="descriptionInput" />
-    <div v-if="textMessage">{{ textMessage }}</div>
+    <div class="mt-2">
+      <input id="description" class="input w-full" @input="descriptionInput" />
+      <div v-if="textMessage">{{ textMessage }}</div>
+    </div>
   </div>
 </template>
